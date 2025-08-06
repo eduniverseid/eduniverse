@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Page</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!--navindex on-->
+    <div class="navindex">
+      <ul class="imgwajib">
+        <li class="li-imgwajib">
+          <img src="img/Logo-Tersier-Diktisaintek-Berdampak-1-1024x1024.png" />
+          <img
+            src="img/Logo_of_Ministry_of_Education_and_Culture_of_Republic_of_Indonesia.svg.png"
+          />
+          <img src="img/Logo_Universitas_Negeri_Makassar.png" />
+          <img src="img/Desain tanpa judul.png" />
+        </li>
+      </ul>
+      <div class="logoedun">
+        <a href="home.html"
+          ><img src="img/2.png" />
+          <p>Home</p></a
+        >
+      </div>
+    </div>
+    <!--navindex off-->
+    <div class="box">
+      <h3>Register</h3>
+      <form id="regForm">
+        <div class="active">
+          <input type="text" name="Username" placeholder="Username" required />
+        </div>
+        <div class="active">
+          <input type="text" name="Instansi" placeholder="Instansi" required />
+        </div>
+        <div class="active">
+          <input type="text" name="Peran" placeholder="Guru/Siswa" required />
+        </div>
+        <div class="active">
+          <input type="email" name="Email" placeholder="Email" required />
+        </div>
+        <button class="submit" type="submit">Daftar</button>
+        <p>
+          Sudah punya akun? <a href="login.html" style="color: white">Login</a>
+        </p>
+      </form>
+    </div>
+
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbzg4bO3VHeK-8qcnODWqeBXMhm_L1CWAZNDvcosiewrZDqHQAFg3-anyvNV1rCwYr3x/exec";
+      const form = document.getElementById("regForm");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        fetch(scriptURL, { method: "POST", body: formData })
+          .then((response) => {
+            alert("✅ Berhasil mendaftar!");
+            window.location.href = "home.html"; // redirect ke halaman home
+          })
+          .catch((error) => {
+            alert("❌ Gagal mengirim data. Cek koneksi atau Script URL.");
+            console.error("Error:", error.message);
+          });
+      });
+    </script>
+  </body>
+</html>

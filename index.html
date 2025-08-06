@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eduniverse.id</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!--navindex on-->
+    <div class="navindex">
+      <ul class="imgwajib">
+        <li class="li-imgwajib">
+          <img src="img/Logo-Tersier-Diktisaintek-Berdampak-1-1024x1024.png" />
+          <img
+            src="img/Logo_of_Ministry_of_Education_and_Culture_of_Republic_of_Indonesia.svg.png"
+          />
+          <img src="img/Logo_Universitas_Negeri_Makassar.png" />
+          <img src="img/Desain tanpa judul.png" />
+        </li>
+      </ul>
+      <div class="logoedun">
+        <a><img src="img/2.png" /></a>
+      </div>
+    </div>
+    <!--navindex off-->
+    <!--isi on-->
+    <div class="container">
+      <p style="padding-top: 80px; font-size: 1.1em">
+        <b>Eduniverse</b> adalah LMS <i>(Learning Management System)</i> yang
+        dirancang untuk memudahkan pembelajaran IPA materi Sistem Tata Surya
+        kelas VII SMP/MTs/Sederajat sesuai dengan Kurikulum Merdeka (Fase D).
+        Menghadirkan proses belajar yang interaktif, menyenangkan, dan bermakna.
+      </p>
+      <p style="font-size: 1.1em">
+        <b>Eduniverse</b> dirancang untuk membantu guru dalam mengelola materi
+        pembelajaran dan memantau perkembangan siswa, sekaligus mendorong siswa
+        untuk belajar mandiri dengan metode yang menarik dan prinsip
+        <i>Joyful, Mindful, and Meaningful</i>. Berikut fitur-fitur yang
+        tersedia di <b>Eduniverse</b>.
+      </p>
+      <!-- SLIDER -->
+      <div class="slider">
+        <div class="slides">
+          <ul class="ul-isiweb">
+            <li class="li-isiweb">
+              <img src="img/2.svg" alt="Video Pembelajaran" />
+              <p>Video Pembelajaran</p>
+            </li>
+            <li class="li-isiweb">
+              <img src="img/1.svg" alt="Power Point Materi" />
+              <p>Power Point Materi</p>
+            </li>
+            <li class="li-isiweb">
+              <img src="img/3.svg" alt="Kuis interaktif" />
+              <p>Kuis interaktif</p>
+            </li>
+            <li class="li-isiweb">
+              <img src="img/4.svg" alt="Laboratorium Maya" />
+              <p>Laboratorium Maya</p>
+            </li>
+            <li class="li-isiweb">
+              <img src="img/6.svg" alt="Lagu Planet-Planet" />
+              <p>Lagu Planet-Planet</p>
+            </li>
+            <li class="li-isiweb">
+              <img src="img/5.svg" alt="Evaluasi" />
+              <p>Evaluasi</p>
+            </li>
+          </ul>
+        </div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
+      </div>
+      <!-- SLIDER END -->
+      <a href="regis.html" class="btn-mulai" style="color: white"
+        >Mulai Belajar</a
+      >
+    </div>
+    <!--isi off-->
+    <!--footer-->
+    <footer>&copy; eduniverse.id</footer>
+    <!--footer-->
+    <!--sript-->
+    <script>
+      (function () {
+        const track = document.querySelector(".ul-isiweb");
+        if (!track) return;
+
+        const items = Array.from(document.querySelectorAll(".li-isiweb"));
+        const prev = document.querySelector(".prev");
+        const next = document.querySelector(".next");
+        if (!items.length) return;
+
+        let index = 0;
+
+        // visible count sesuai lebar layar (sinkron dengan CSS responsive)
+        function visibleCount() {
+          const w = window.innerWidth;
+          if (w <= 640) return 1;
+          if (w <= 980) return 2;
+          return 3;
+        }
+
+        // hitung step = width item + gap (agar translate tepat)
+        function getStep() {
+          const rect = items[0].getBoundingClientRect();
+          const gap = parseFloat(getComputedStyle(track).gap) || 0;
+          return Math.round(rect.width + gap);
+        }
+
+        function maxIndex() {
+          return Math.max(0, items.length - visibleCount());
+        }
+
+        function applyTransform() {
+          const step = getStep();
+          track.style.transform = `translateX(${-index * step}px)`;
+        }
+
+        function show(i) {
+          const mx = maxIndex();
+          if (i < 0) index = mx;
+          else if (i > mx)
+            index = 0; // loop; ubah ke index=mx jika tidak mau loop
+          else index = i;
+          applyTransform();
+        }
+
+        if (prev)
+          prev.addEventListener("click", () => {
+            show(index - 1);
+            resetAutoplay();
+          });
+        if (next)
+          next.addEventListener("click", () => {
+            show(index + 1);
+            resetAutoplay();
+          });
+
+        // autoplay dengan pause-on-hover
+        let autoplay = setInterval(() => show(index + 1), 4000);
+        function resetAutoplay() {
+          clearInterval(autoplay);
+          autoplay = setInterval(() => show(index + 1), 4000);
+        }
+
+        const slidesViewport =
+          document.querySelector(".slides") || track.parentElement;
+        if (slidesViewport) {
+          slidesViewport.addEventListener("mouseenter", () =>
+            clearInterval(autoplay)
+          );
+          slidesViewport.addEventListener("mouseleave", () => resetAutoplay());
+        }
+
+        window.addEventListener("resize", () => {
+          if (index > maxIndex()) index = maxIndex();
+          applyTransform();
+        });
+
+        // init
+        show(0);
+      })();
+    </script>
+  </body>
+</html>
