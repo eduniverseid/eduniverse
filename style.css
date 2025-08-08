@@ -117,14 +117,11 @@ a:active {
   height: 360px;
 }
 .container iframe {
-  width: 854px;
-  height: 480px;
+  width: 800px;
+  height: 450px;
   align-items: center;
   justify-content: center;
   margin-top: 15px;
-  allow
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  allowfullscreen;
 }
 .end {
   display: flex;
